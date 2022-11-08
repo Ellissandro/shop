@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/components/badge.dart';
 import 'package:shop/components/product_grid.dart';
-import 'package:shop/models/product.dart';
-import 'package:shop/models/product_list.dart';
+import 'package:shop/utils/app_routes.dart';
+
+import '../models/cart.dart';
 
 enum FilterOptions {
   Favorite,
   All,
 }
 
-class ProductsOverviewPage extends StatelessWidget {
+class ProductsOverviewPage extends StatefulWidget {
   const ProductsOverviewPage({super.key});
 
   @override
+  State<ProductsOverviewPage> createState() => _ProductsOverviewPageState();
+}
+
+class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
+  bool _showFavoriteOnly = false;
+
+  @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ProductList>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Minha loja'),
@@ -32,17 +40,30 @@ class ProductsOverviewPage extends StatelessWidget {
               )
             ],
             onSelected: (FilterOptions selectedValue) {
-              if (selectedValue == FilterOptions.Favorite) {
-                provider.showFavoriteOnly();
-                return;
-              }
-
-              provider.showAll();
+              setState(() {
+                if (selectedValue == FilterOptions.Favorite) {
+                  _showFavoriteOnly = true;
+                  return;
+                }
+                _showFavoriteOnly = false;
+              });
             },
+          ),
+          Consumer<Cart>(
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.CART);
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
+            builder: (ctx, cart, child) => Badge(
+              value: cart.itemsCount.toString(),
+              child: child!,
+            ),
           )
         ],
       ),
-      body: const ProductGrid(),
+      body: ProductGrid(_showFavoriteOnly),
     );
   }
 }
