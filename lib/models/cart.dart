@@ -11,6 +11,10 @@ class Cart with ChangeNotifier {
     return {...items};
   }
 
+  List<CartItem> get itemsValue {
+    return _items.values.toList();
+  }
+
   int get itemsCount {
     return _items.length;
   }
