@@ -18,12 +18,6 @@ class CartPage extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.green,
         behavior: SnackBarBehavior.floating,
-        duration: const Duration(milliseconds: 400),
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height - 83,
-          right: 5,
-          left: 5,
-        ),
         content: const Text("Compra realizada com sucesso!"),
       ));
     }

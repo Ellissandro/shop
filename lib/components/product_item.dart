@@ -18,11 +18,6 @@ class ProductItem extends StatelessWidget {
         backgroundColor: Colors.green,
         behavior: SnackBarBehavior.floating,
         duration: const Duration(milliseconds: 1000),
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height - 83,
-          right: 5,
-          left: 5,
-        ),
         content: const Text("Produto adicionado ao carrinho!"),
       ));
     }
