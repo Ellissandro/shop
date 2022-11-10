@@ -3,7 +3,10 @@ import 'package:shop/data/dummy_data.dart';
 import 'package:shop/models/product.dart';
 
 class ProductList with ChangeNotifier {
+  final String _token;
   final List<Product> _items = dummyProducts;
+
+  ProductList(this._token);
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
